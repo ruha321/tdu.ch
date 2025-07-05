@@ -29,14 +29,14 @@ const messagesRef = collection(db, "messages");
 onAuthStateChanged(auth, async (user) => {
     if (!user || !user.emailVerified) {
         alert("未認証ユーザーは利用できません。");
-        window.location.href = "login.html";
+        window.location.href = "index.html";
     }
 });
 
 // ログアウト
 document.getElementById("logout").addEventListener("click", () => {
     signOut(auth).then(() => {
-        window.location.href = "login.html";
+        window.location.href = "index.html";
     });
 });
 
