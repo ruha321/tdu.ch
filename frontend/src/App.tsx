@@ -1,11 +1,11 @@
 //import { useState } from "react";
 import { useEffect, type ReactElement } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./pages/Layout";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import BBS from "./pages/BBS";
+import { Routes, Route } from "react-router-dom";
+import Layout from "./routes/BodyLayout";
+import Home from "./routes/Home";
+import Login from "./routes/Login";
+import Signup from "./routes/Signup";
+//import BBS from "./routes/BBS";
 
 type Page = {
   path: string;
@@ -29,14 +29,16 @@ const pages: Page[] = [
     key: "signup",
     element: <Signup />,
   },
+  /*
   {
     path: "/bbs",
     key: "bbs",
     element: <BBS />,
   },
+  */
 ];
 
-function App() {
+export default function App() {
   useEffect(() => {
     //const body = document.getElementsByTagName("body")[0] as HTMLElement;
     //const scriptUrl = document.createElement("script");
@@ -46,19 +48,17 @@ function App() {
   });
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          {pages.map((page) =>
-            page.key === "home" ? (
-              <Route key={page.key} index element={page.element} />
-            ) : (
-              <Route key={page.key} path={page.path} element={page.element} />
-            )
-          )}
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        {pages.map((page) =>
+          page.key === "home" ? (
+            <Route key={page.key} index element={page.element} />
+          ) : (
+            <Route key={page.key} path={page.path} element={page.element} />
+          )
+        )}
+      </Route>
+    </Routes>
   );
 }
 
@@ -74,4 +74,3 @@ function App() {
     </main>
     */
 //<script type="module" src="./app_login.js"></script>
-export default App;
