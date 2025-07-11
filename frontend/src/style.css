@@ -1,0 +1,33 @@
+:root {
+  font-family: sans-serif;
+  /*max-width: 599px;*/
+  margin: 0;
+  padding: 0rem;
+  background: #f8f9f9;
+  /*margin: 0;
+  background: #555;*/
+}
+input, button {
+  padding: 8px;
+  margin: 4px;
+  font-size: 1rem;
+}
+form {
+  margin-top: 1rem;
+}
+#messages {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  height: 300px;
+  overflow-y: scroll;
+  margin-top: 1rem;
+}
+.message {
+  border-bottom: 1px solid #eee;
+  padding: 0.5rem 0;
+}
+.message span {
+  color: #555;
+  font-size: 0.9rem;
+}
