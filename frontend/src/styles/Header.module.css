@@ -1,0 +1,9 @@
+.header {
+    background: #cacaca;
+}
+.header-container {
+    display: flex;
+    flex-direction: row;
+    color: #0000ff;
+    height: 100%;
+}
