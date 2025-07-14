@@ -1,10 +1,11 @@
 import { NavLink } from "react-router-dom";
 import { useAuthContext } from "../logic/AuthProvider";
+import styles from "../styles/Nav.module.css";
 
 export function Nav() {
   const { user } = useAuthContext();
   return (
-    <nav>
+    <nav className={styles.nav}>
       <NavLink to="/">トップページ</NavLink>
       {user === null ? (
         <div>

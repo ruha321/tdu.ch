@@ -26,6 +26,10 @@ export async function clientLoader(params: Route.ClientLoaderArgs) {
   return { threadsRef, q };
 }
 
+export function meta() {
+  return [{ title: "スレッド一覧" }];
+}
+
 export default function Threads({ loaderData }: Route.ComponentProps) {
   // スレッド一覧をリアルタイムに表示
   const [threads, setThreads] = useState<ThreadName[]>([]);
@@ -78,7 +82,7 @@ export default function Threads({ loaderData }: Route.ComponentProps) {
         />
         <button type="submit">作成</button>
       </form>
-      <button onClick={() => navigation("/")}>戻る</button>
+      <button onClick={() => navigation(-1)}>戻る</button>
       <ul className="thread-list">
         {threads.map((thread) => (
           <li key={thread.id}>

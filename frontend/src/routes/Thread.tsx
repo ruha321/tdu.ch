@@ -12,7 +12,7 @@ export type MessagesDiv = {
 };
 export async function clientLoader({ params }: Route.ClientLoaderArgs) {
   try {
-    const bbsId = params.bbsId ? params.bbsId : "main";
+    const bbsId = params.bbsId;
     const { title, messages } = await threadInfo(bbsId);
     //alert("got data");
     return { title, messages, bbsId };
@@ -49,9 +49,7 @@ export default function Thread({ loaderData }: Route.ComponentProps) {
       <h2 id="thread-title">{title}</h2>
       <BBSForm bbsId={bbsId} />
       <Posts posts={posts} />
-      <button onClick={() => navigation("/bbs/threads")}>
-        スレッド一覧へ戻る
-      </button>
+      <button onClick={() => navigation(-1)}>スレッド一覧へ戻る</button>
     </div>
   );
 }

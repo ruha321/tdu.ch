@@ -1,28 +1,30 @@
-import { addDoc, collection, CollectionReference, doc, getDoc, onSnapshot, orderBy, Query, query, serverTimestamp, type DocumentData } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, orderBy, Query, query, serverTimestamp, type DocumentData } from "firebase/firestore";
 import { db, auth } from "./client";
+import { requireUser } from "./auth";
+import { main } from "../routes/BBS";
 
 export async function threadInfo(urlId: string): Promise<{ title:string, messages: Query<DocumentData, DocumentData> }> {
-    let title = "main";
-// URL から threadId を取得
+    // URL から threadId を取得
     const threadId = urlId;
         if (!threadId) {
             throw new Error("スレッドが見つかりません。");
         }
-        if(threadId === "main") {
+        if(threadId === main) {
             const messagesRef = collection(db, "messages");
             const messages = query(messagesRef, orderBy("createdAt", "asc"))
-            return { title, messages };
+            return { title: "メインページ", messages };
         }
     const threadDocRef = doc(db, "threads", threadId);
     const messagesRef =  collection(threadDocRef, "messages");
 
-// スレッドタイトル取得
+    // スレッドタイトル取得
     const docSnap = await getDoc(threadDocRef);
-    if (docSnap.exists()) {
-        title = docSnap.data().title;
-    } else {
-        throw new Error("スレッドが見つかりません。");
-    }
+    const title = (() => {if (docSnap.exists()) {
+            return docSnap.data().title;
+        } else {
+            throw new Error("スレッドが見つかりません。");
+        }
+    })();
     const messages = query(messagesRef, orderBy("createdAt", "asc"));
     return {title, messages};
 };
@@ -54,24 +56,31 @@ type MessagesDiv = {
 */
 
 // 投稿
-/*
-document.getElementById("chat-form").addEventListener("submit", async (e) => {
+// document.getElementById("chat-form").addEventListener("submit", 
+export const postMessageToDB =  (message: string) => (setMessageNone: () => void) => (bbsId: string) => async (e: React.FormEvent) =>{
     e.preventDefault();
-    const message = document.getElementById("message").value.trim();
+    const user = await requireUser();
+    const text = message.trim();
     if (!message) return;
 
-    const user = auth.currentUser;
     if (!user || !user.emailVerified) {
         alert("ログインしている認証済みユーザーのみが投稿できます。");
         return;
     }
     console.log(auth.currentUser);
+    const messagesRef = ((bbsId: string) => {
+      if (bbsId === main) {
+        return collection(db, "messages");
+      } else {
+        const threadDocRef = doc(db, "threads", bbsId);
+        return collection(threadDocRef, "messages");
+      }
+    })(bbsId);
     await addDoc(messagesRef, {
         name: user.email,
-        message,
+        message: text,
         createdAt: serverTimestamp()
     });
-
-    document.getElementById("message").value = "";
-});
-*/
+    console.log(message);
+    setMessageNone();
+};

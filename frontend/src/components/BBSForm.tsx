@@ -1,7 +1,5 @@
-import { addDoc, collection, doc, serverTimestamp } from "firebase/firestore";
 import { useState } from "react";
-import { db } from "../logic/client";
-import { requireUser } from "../logic/auth";
+import { postMessageToDB } from "../logic/app_thread";
 
 type BBSProps = {
   bbsId: string;
@@ -9,32 +7,8 @@ type BBSProps = {
 
 export function BBSForm(props: BBSProps) {
   const [message, setMessage] = useState("");
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    const user = await requireUser();
-    const text = message.trim();
-    if (!text) return;
-
-    if (!user || !user.emailVerified) {
-      alert("認証済みユーザーのみ投稿できます。");
-      return;
-    }
-    //const messageRef= collection(db, "messages");
-    let threadDocRef;
-    if (props.bbsId === "main") {
-      threadDocRef = db;
-    } else {
-      threadDocRef = doc(db, "threads", props.bbsId);
-    }
-    const messagesRef = collection(threadDocRef, "messages");
-    await addDoc(messagesRef, {
-      name: user.email,
-      message: text,
-      createdAt: serverTimestamp(),
-    });
-    console.log(message);
-    setMessage("");
-  };
+  const { bbsId } = props;
+  const handleSubmit = postMessageToDB(message)(() => setMessage(""))(bbsId);
   return (
     <form id="chat-form" onSubmit={handleSubmit}>
       <input

@@ -7,8 +7,9 @@ import {
 } from "react-router-dom";
 import type { Route } from "./+types/BBS";
 import { useEffect } from "react";
-import { useAuthContext } from "../logic/AuthProvider";
 import { requireUser } from "../logic/auth";
+
+export const main = "main";
 
 export async function clientLoader(params: Route.ClientLoaderArgs) {
   const user = requireUser;
@@ -34,7 +35,7 @@ export default function BBS({ loaderData, params }: Route.ComponentProps) {
   */
   useEffect(() => {
     if (pathname === "/bbs") {
-      navigate("/bbs/main", { replace: true });
+      navigate("/bbs/" + main, { replace: true });
     }
   }, [pathname, navigate]);
   //if (!user) return null;
