@@ -1,0 +1,90 @@
+@startuml
+title Web掲示板 全体シーケンス図
+
+actor ユーザー as User
+participant "ブラウザ (Client)" as Browser
+participant "Firebase Authentication" as FirebaseAuth
+participant "Firestore" as Firestore
+
+== 1. ユーザー登録とログイン ==
+
+group ユーザー登録
+    User -> Browser: メールアドレスとパスワード入力、"登録"クリック
+    Browser -> Browser: isDomainAllowed(email)でドメイン検証
+    alt 許可されたドメイン
+        Browser -> FirebaseAuth: createUserWithEmailAndPassword()
+        FirebaseAuth --> Browser: ユーザー情報返却
+        Browser -> FirebaseAuth: sendEmailVerification()
+        FirebaseAuth --> Browser: 確認メール送信完了
+        Browser -> User: 「確認メールを送信しました」と表示
+    else 許可されないドメイン
+        Browser -> User: ドメインエラー表示
+    end
+end
+
+group ログイン
+    User -> Browser: メールアドレスとパスワード入力、"ログイン"クリック
+    Browser -> Browser: isDomainAllowed(email)でドメイン検証
+    alt 許可されたドメイン
+        Browser -> FirebaseAuth: signInWithEmailAndPassword()
+        FirebaseAuth --> Browser: ユーザー情報返却
+        Browser -> FirebaseAuth: reload()
+        FirebaseAuth --> Browser: 最新のユーザー情報
+        alt メール認証済み
+            Browser -> Browser: bbs.html へ画面遷移
+        else 未認証
+            Browser -> User: 「メール認証が完了していません」と表示
+        end
+    else 許可されないドメイン
+        Browser -> User: ドメインエラー表示
+    end
+end
+
+
+== 2. 掲示板の利用 ==
+
+activate Browser
+
+Browser -> User: 掲示板ページ(bbs.html)表示
+User -> Browser: 「スレッド一覧」をクリック
+Browser -> Browser: threads.html へ画面遷移
+
+group スレッド一覧表示
+    Browser -> Firestore: query(threadsRef)でスレッド一覧を要求
+    Firestore --> Browser: onSnapshot()でリアルタイムにスレッド一覧を送信
+    Browser -> User: スレッド一覧を表示
+end
+
+group 新規スレッド作成
+    User -> Browser: 新しいスレッドタイトル入力、"作成"クリック
+    Browser -> Firestore: addDoc()で新しいスレッドを追加
+    Firestore --> Browser: 作成されたスレッドのIDを返す
+    Browser -> Browser: 作成されたスレッドページ(thread.html?id=...)へ遷移
+end
+
+group スレッド詳細表示とメッセージ投稿
+    User -> Browser: 任意のスレッドをクリック
+    Browser -> Browser: thread.html?id=... へ画面遷移
+    Browser -> Firestore: getDoc()でスレッドタイトルを取得
+    Firestore --> Browser: スレッドタイトルを返す
+    Browser -> User: スレッドタイトル表示
+    Browser -> Firestore: query(messagesRef)でメッセージ一覧を要求
+    Firestore --> Browser: onSnapshot()でリアルタイムにメッセージ一覧を送信
+    Browser -> User: メッセージ一覧を表示
+
+    User -> Browser: メッセージ入力、"送信"クリック
+    Browser -> FirebaseAuth: currentUserで認証状態を確認
+    Browser -> Firestore: addDoc()でメッセージを投稿
+    Firestore --> Browser: 投稿成功
+    Browser -> Browser: 入力欄をクリア
+end
+
+== 3. ログアウト ==
+
+User -> Browser: 「ログアウト」ボタンをクリック
+Browser -> FirebaseAuth: signOut()
+FirebaseAuth --> Browser: ログアウト成功
+Browser -> Browser: ログインページ(index.html)へ遷移
+deactivate Browser
+
+@enduml
