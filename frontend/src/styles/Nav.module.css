@@ -1,7 +1,33 @@
-.nav {
+/* Nav.module.css */
+.navLinks {
     display: flex;
-    flex: auto;
+    align-items: center;
+    gap: 1rem;
 }
-.nav NavLink {
-    flex: auto;
+
+/* リンクをボタン風に見せる */
+.navLink {
+    text-decoration: none;
+    color: var(--text, #333);
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.navLink:hover {
+    background-color: #f0f0f0;
+}
+
+.autoButton {
+    color: #fff;
+    background-color: var(--primary, #28a745);
+    border: 2px solid var(--primary, #28a745);
+}
+
+/* モバイル対応：幅広ボタン */
+@media (hover: hover) {
+    .autoButton:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
 }

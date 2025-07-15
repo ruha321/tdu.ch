@@ -87,8 +87,8 @@ export default function Threads({ loaderData }: Route.ComponentProps) {
           作成
         </button>
       </form>
-      <button onClick={() => navigation(-1)}>戻る</button>
       <ThreadList threads={threads} />
+      <button onClick={() => navigation(-1)}>戻る</button>
     </div>
   );
 }

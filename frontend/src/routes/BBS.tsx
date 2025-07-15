@@ -13,10 +13,7 @@ import styles from "../styles/BBS.module.css";
 export const main = "main";
 
 export async function clientLoader(params: Route.ClientLoaderArgs) {
-  const user = requireUser;
-  if (user === null) {
-    redirect("/login");
-  }
+  const user = await requireUser();
   return user;
 }
 
@@ -25,7 +22,7 @@ export function meta({ matches }: Route.MetaArgs) {
 }
 
 export default function BBS({ loaderData, params }: Route.ComponentProps) {
-  //const { user } = useAuthContext();
+  const user = loaderData;
   const navigate = useNavigate();
   const { pathname } = useLocation();
   /*useEffect(() => {
@@ -35,6 +32,9 @@ export default function BBS({ loaderData, params }: Route.ComponentProps) {
   }, [user, navigate]);
   */
   useEffect(() => {
+    if (user === null) {
+      navigate("/login");
+    }
     if (pathname === "/bbs") {
       navigate("/bbs/" + main, { replace: true });
     }
@@ -42,12 +42,6 @@ export default function BBS({ loaderData, params }: Route.ComponentProps) {
   //if (!user) return null;
   return (
     <div className={styles.pageContent}>
-      <h2>{}</h2>
-      <ul>
-        <li>
-          <Link to="/bbs/threads">スレッド一覧</Link>
-        </li>
-      </ul>
       <Outlet />
     </div>
   );

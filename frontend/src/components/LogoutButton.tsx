@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import styles from "../styles/Logout.module.css";
 import { signout } from "../logic/app_login";
+
+import styles from "../styles/Header.module.css";
 
 export function LogoutButton() {
   const navigate = useNavigate();
