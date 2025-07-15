@@ -8,13 +8,15 @@ import {
 } from "firebase/firestore";
 import { db } from "../logic/client";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { requireUser } from "../logic/auth";
 import type { Route } from "./+types/Threads";
-type ThreadName = {
+import ThreadList from "../components/ThreadList";
+export type ThreadName = {
   id: string;
   title: string;
 };
+import styles from "../styles/Threads.module.css";
 
 /*
     const href<string> = "/bbs/" + doc.id;
@@ -72,24 +74,21 @@ export default function Threads({ loaderData }: Route.ComponentProps) {
   return (
     <div>
       <h2>スレッド一覧</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.newThreadForm}>
         <input
           type="text"
           value={threadTitle}
           placeholder="新しいスレッドタイトル"
           onChange={(e) => setThreadTitle(e.target.value)}
+          className={styles.newThreadInput}
           required
         />
-        <button type="submit">作成</button>
+        <button type="submit" className={styles.newThreadButton}>
+          作成
+        </button>
       </form>
       <button onClick={() => navigation(-1)}>戻る</button>
-      <ul className="thread-list">
-        {threads.map((thread) => (
-          <li key={thread.id}>
-            <Link to={`/bbs/${thread.id}`}>{thread.title}</Link>
-          </li>
-        ))}
-      </ul>
+      <ThreadList threads={threads} />
     </div>
   );
 }

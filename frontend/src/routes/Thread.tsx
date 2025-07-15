@@ -49,7 +49,7 @@ export default function Thread({ loaderData }: Route.ComponentProps) {
       <h2 id="thread-title">{title}</h2>
       <BBSForm bbsId={bbsId} />
       <Posts posts={posts} />
-      <button onClick={() => navigation(-1)}>スレッド一覧へ戻る</button>
+      <button onClick={() => navigation(-1)}>戻る</button>
     </div>
   );
 }

@@ -1,10 +1,97 @@
+/* Header.module.css */
+
 .header {
-    background: #cacaca;
+
+	background-color: #ffffff;
+
+	border-bottom: 1px solid #e0e0e0;
+
+	padding: 1rem 2rem;
+
+	position: sticky;
+
+	top: 0;
+
+	z-index: 100;
+
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
 }
-.header-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    color: #0000ff;
-    height: 100%;
+
+.headerContainer {
+
+	max-width: 1200px;
+
+	margin: 0 auto;
+
+	display: flex;
+
+	align-items: center;
+
+	justify-content: space-between;
+
+	flex-wrap: wrap; /* モバイルで折り返し可 */
+
+	gap: 0.5rem;
+
+}
+
+/* サイトロゴ */
+
+.headerContainer h1 {
+
+	font-size: 1.5rem;
+
+	font-weight: bold;
+
+	color: #2c3e50;
+
+	margin: 0;
+
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+	flex-shrink: 0;
+
+}
+
+/* ナビゲーション＆ボタンの共通設定（モバイルで並ぶよう） */
+
+.headerContainer > :not(h1) {
+
+	display: flex;
+
+	align-items: center;
+
+	gap: 1rem;
+
+}
+
+/* ===== モバイル対応エリア ===== */
+
+@media (max-width: 768px) {
+
+	.headerContainer {
+
+		flex-direction: column;
+
+		align-items: flex-start;
+
+		padding: 0.5rem 1rem;
+
+	}
+
+	.headerContainer h1 {
+
+		font-size: 1.25rem;
+
+	}
+
+	.headerContainer > :not(h1) {
+
+		width: 100%;
+
+		justify-content: space-between;
+
+	}
+
 }

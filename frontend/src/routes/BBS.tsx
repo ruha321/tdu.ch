@@ -8,6 +8,7 @@ import {
 import type { Route } from "./+types/BBS";
 import { useEffect } from "react";
 import { requireUser } from "../logic/auth";
+import styles from "../styles/BBS.module.css";
 
 export const main = "main";
 
@@ -40,7 +41,7 @@ export default function BBS({ loaderData, params }: Route.ComponentProps) {
   }, [pathname, navigate]);
   //if (!user) return null;
   return (
-    <div>
+    <div className={styles.pageContent}>
       <h2>{}</h2>
       <ul>
         <li>
