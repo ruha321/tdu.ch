@@ -24,5 +24,6 @@ dist-ssr
 *.sw?
 
 /.react-router/
+/build/
 bbs.txt
 index.txt

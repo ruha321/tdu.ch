@@ -6,7 +6,7 @@
   "scripts": {
     "typecheck": "react-router typegen && tsc",
     "dev": "react-router dev",
-    "build": "tsc -b && vite build",
+    "build": "react-router build",
     "preview": "vite preview",
     "lint": "eslint src"
   },
@@ -22,7 +22,6 @@
   "devDependencies": {
     "@eslint/js": "^9.30.1",
     "@react-router/dev": "^7.6.3",
-    "@react-router/node": "^7.6.3",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react-swc": "^3.9.0",

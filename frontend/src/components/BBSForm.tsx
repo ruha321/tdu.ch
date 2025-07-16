@@ -15,7 +15,7 @@ export function BBSForm(props: BBSProps) {
         type="text"
         placeholder="メッセージ"
         value={message}
-        onChange={(e) => setMessage(e.target.value.trim())}
+        onChange={(e) => setMessage(e.target.value)}
         required
       />
       <button type="submit">送信</button>
