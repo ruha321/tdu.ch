@@ -13,7 +13,7 @@ export function Posts(props: PostsProps) {
   useEffect(() => {
     const unsup = getMessages(setPosts)(messagesRef);
     return () => unsup();
-  });
+  }, []);
   return (
     <div id="messages">
       {posts.map((post, i) => (
