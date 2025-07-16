@@ -5,6 +5,7 @@
     justify-content: flex-end;
     align-items: center;
     padding: 0.5rem;
+    cursor: pointer;
 }
 
 /* ダークグレー背景に白文字、コントラスト重視 */

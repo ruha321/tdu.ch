@@ -1,8 +1,11 @@
-import { redirect } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, type User } from "firebase/auth";
 import { auth } from "./client";
 
-export async function requireUser() {
-    const user = auth.currentUser;
-    return user;
-}
+export const requireUser: () => Promise<User | null> = async () => {
+  return new Promise((resolve) => {
+    const unsup = onAuthStateChanged(auth, (user) => {
+      resolve(user);
+    });
+    unsup();
+  });
+};

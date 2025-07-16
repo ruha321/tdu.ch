@@ -2,6 +2,10 @@ import { useNavigate } from "react-router-dom";
 import { AuthForm } from "../components/AuthForm";
 import { signup } from "../logic/app_login";
 
+export const meta = () => {
+  return [{ title: "サインアップ tduch" }];
+};
+
 export default function Signup() {
   const navigate = useNavigate();
   const handleSignup = async (email: string, password: string) => {

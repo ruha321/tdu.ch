@@ -1,38 +1,29 @@
 /* Header.module.css */
+/*ヘッダー*/
 .header {
-	background-color: #fff;
-	border-bottom: 1px solid #e0e0e0;
 	position: sticky;
 	top: 0;
+	background: #fff;
+	border-bottom: 1px solid #e0e0e0;
 	z-index: 100;
 }
 
-/* 上段：ロゴ中央配置 */
-.logoContainer {
+/* 1行目：ロゴ左＋認証ボタン右＋ハンバーガーボタン（モバイル用） */
+.topRow {
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
+	align-items: center;
 	padding: 0.5rem 1rem;
 }
 
 .logo {
 	font-size: 1.5rem;
 	font-weight: bold;
-	text-decoration: none;
-	color: var(--text, #333);
 	display: inline-block;
-	padding: 0.25rem 0;
+	color: var(--text, #333);
+	text-decoration: none;
 }
 
-/* 下段：ナビ＋認証ボタン */
-.navContainer {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	height: 44px;
-	padding: 0 1rem;
-}
-
-/* 認証ボタンのスタイル */
 .authButtons {
 	display: flex;
 	gap: 1rem;
@@ -42,17 +33,13 @@
 .signupLink {
 	display: inline-flex;
 	align-items: center;
-	padding: 0.4rem 0.8rem;
+	padding: 0.5rem 1rem;
+	border: 2px solid #d3d3d3;
 	border-radius: 4px;
 	font-size: 0.9rem;
-	text-decoration: none;
-	background-color: transparent;
-	transition: border-color 0.2s, color 0.2s;
-}
-
-.loginLink {
-	border: 2px solid #d3d3d3;
 	color: var(--text, #333);
+	text-decoration: none;
+	transition: border-color 0.2s, color 0.2s;
 }
 
 .loginLink:hover {
@@ -61,7 +48,7 @@
 }
 
 .signupLink {
-	border: 2px solid var(--primary, #007bff);
+	border-color: var(--primary, #007bff);
 	color: var(--primary, #007bff);
 }
 
@@ -70,74 +57,99 @@
 	color: #0056b3;
 }
 
-/* 🎯 モバイル対応（max-width: 600pxを想定） */
-@media (max-width: 600px) {
-	.logo {
-		font-size: 1.25rem;
-	}
+/* ハンバーガー */
+.burger {
+	width: 24px;
+	height: 24px;
+	background: none;
+	border: none;
+	position: relative;
+	cursor: pointer;
+}
 
-	.navContainer {
-		flex-direction: column;
-		height: auto;
-		padding: 0.5rem 1rem;
-		gap: 0.5rem;
+.burger span,
+.burger span::before,
+.burger span::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 2px;
+	background: #333;
+	transition: 0.3s;
+}
+
+.burger span {
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.burger span::before {
+	top: -8px;
+}
+
+.burger span::after {
+	top: 8px;
+}
+
+.burgerActive span {
+	background: transparent;
+}
+
+.burgerActive span::before {
+	top: 0;
+	transform: rotate(45deg);
+}
+
+.burgerActive span::after {
+	top: 0;
+	transform: rotate(-45deg);
+}
+
+
+/* 2行目：ナビ（ハンバーガーメニュー開閉対応） */
+/*
+.navContainer {
+	overflow: hidden;
+	max-height: 0;
+	transition: max-height 0.3s ease;
+	background: #fff;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.navContainer.open {
+	max-height: 200px;
+}
+
+.navInner {
+	margin: 0 1rem;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	height: 44px;
+	gap: 1rem;
+}
+
+-- Nav内リンク用ラッパー --
+.navLinks {
+	display: flex;
+	gap: 1rem;
+}
+*/
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+	.burger {
+		display: block;
 	}
 
 	.authButtons {
-		flex-wrap: wrap;
-		justify-content: center;
+		display: none;
 	}
-}
 
-
-/* ログアウトボタン */
-.Logout {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 0.5rem;
-}
-
-/* ダークグレー背景に白文字、コントラスト重視 */
-.LogoutButton {
-    background-color: #444444;
-    /* 落ち着いたダークグレー */
-    color: #ffffff;
-    /* 白文字で高コントラスト */
-    border: none;
-    border-radius: 4px;
-    padding: 0.75rem 1.25rem;
-    font-size: 1rem;
-    min-width: 48px;
-    min-height: 48px;
-    line-height: 1;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-/* PC向けホバー状態 */
-@media (hover: hover) {
-    .LogoutButton:hover {
-        background-color: #555555;
-        /* 少し明るく（反転効果） */
-    }
-}
-
-/* タップ・クリック反応 */
-.LogoutButton:active {
-    transform: translateY(1px);
-}
-
-/* フォーカス時の輪郭 */
-.LogoutButton:focus {
-    outline: 3px solid #888888;
-    outline-offset: 2px;
-}
-
-/* モバイル対応：画面幅いっぱいに */
-@media (max-width: 600px) {
-    .LogoutButton {
-        width: 100%;
-    }
+	/*.navInner {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+		*/
 }

@@ -1,7 +1,36 @@
 /* Nav.module.css */
+
 .navLinks {
     display: flex;
     align-items: center;
+    gap: 1rem;
+}
+
+.navContainer {
+    max-height: 200px;
+    transition: max-height 0.3s ease;
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* モバイル対応（例） */
+@media (max-width: 768px) {
+    .navContainer {
+        /* モバイルでは縦に開く */
+        display: block;
+    }
+    .navInner {
+		flex-direction: column;
+		align-items: flex-start;
+    }
+}
+
+.navInner {
+    margin: 0 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 44px;
     gap: 1rem;
 }
 

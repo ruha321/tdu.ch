@@ -1,24 +1,20 @@
 import { Nav } from "./Nav";
 import styles from "../styles/Header.module.css";
 import { LogoutButton } from "./LogoutButton";
-import { useContext } from "react";
-import { AuthContext } from "../logic/AuthProvider";
+import { useAuthContext } from "../logic/AuthProvider";
 import { Link } from "react-router-dom";
 
 function Header() {
-  const { user } = useContext(AuthContext);
+  const { user } = useAuthContext();
 
   return (
     <header className={styles.header}>
-      <div className={styles.logoContainer}>
+      <div className={styles.topRow}>
         <h1>
           <Link to="/" className={styles.logo}>
             tduch
           </Link>
         </h1>
-      </div>
-      <div className={styles.navContainer}>
-        <Nav />
         <div className={styles.authButtons}>
           {user !== null ? (
             <LogoutButton />
@@ -33,6 +29,9 @@ function Header() {
             </>
           )}
         </div>
+      </div>
+      <div className={styles.navInner}>
+        <Nav />
       </div>
     </header>
   );
