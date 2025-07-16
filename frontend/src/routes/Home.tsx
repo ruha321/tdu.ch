@@ -1,6 +1,4 @@
-import type { Route } from "./+types/home";
-
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
     { title: "tduchへようこそ！" },
     { name: "description", content: "Welcome to tduch!" },

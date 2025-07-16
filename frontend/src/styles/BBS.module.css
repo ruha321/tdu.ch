@@ -1,0 +1,14 @@
+/* BBS.module.css */
+.pageContent {
+    padding-top: var(--header-height, 4rem);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* モバイル対応 */
+@media (max-width: 600px) {
+    .pageContent {
+        padding: 0.5rem;
+    }
+}

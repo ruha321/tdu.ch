@@ -1,6 +1,53 @@
+/* Logout.module.css */
+
 .Logout {
-    flex: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0.5rem;
+    cursor: pointer;
 }
+
+/* ダークグレー背景に白文字、コントラスト重視 */
 .LogoutButton {
-    display: block;
+    background-color: #444444;
+    /* 落ち着いたダークグレー */
+    color: #ffffff;
+    /* 白文字で高コントラスト */
+    border: none;
+    border-radius: 4px;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    min-width: 48px;
+    min-height: 48px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* PC向けホバー状態 */
+@media (hover: hover) {
+    .LogoutButton:hover {
+        background-color: #555555;
+        /* 少し明るく（反転効果） */
+    }
+}
+
+/* タップ・クリック反応 */
+.LogoutButton:active {
+    transform: translateY(1px);
+}
+
+/* フォーカス時の輪郭 */
+.LogoutButton:focus {
+    outline: 3px solid #888888;
+    outline-offset: 2px;
+}
+
+/* モバイル対応：画面幅いっぱいに */
+@media (max-width: 600px) {
+    .LogoutButton {
+        width: 100%;
+    }
 }

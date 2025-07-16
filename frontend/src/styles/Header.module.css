@@ -1,10 +1,155 @@
+/* Header.module.css */
+/*ヘッダー*/
 .header {
-    background: #cacaca;
+	position: sticky;
+	top: 0;
+	background: #fff;
+	border-bottom: 1px solid #e0e0e0;
+	z-index: 100;
 }
-.header-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    color: #0000ff;
-    height: 100%;
+
+/* 1行目：ロゴ左＋認証ボタン右＋ハンバーガーボタン（モバイル用） */
+.topRow {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.5rem 1rem;
+}
+
+.logo {
+	font-size: 1.5rem;
+	font-weight: bold;
+	display: inline-block;
+	color: var(--text, #333);
+	text-decoration: none;
+}
+
+.authButtons {
+	display: flex;
+	gap: 1rem;
+}
+
+.loginLink,
+.signupLink {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.5rem 1rem;
+	border: 2px solid #d3d3d3;
+	border-radius: 4px;
+	font-size: 0.9rem;
+	color: var(--text, #333);
+	text-decoration: none;
+	transition: border-color 0.2s, color 0.2s;
+}
+
+.loginLink:hover {
+	border-color: var(--text, #333);
+	color: var(--text, #333);
+}
+
+.signupLink {
+	border-color: var(--primary, #007bff);
+	color: var(--primary, #007bff);
+}
+
+.signupLink:hover {
+	border-color: #0056b3;
+	color: #0056b3;
+}
+
+/* ハンバーガー */
+.burger {
+	width: 24px;
+	height: 24px;
+	background: none;
+	border: none;
+	position: relative;
+	cursor: pointer;
+}
+
+.burger span,
+.burger span::before,
+.burger span::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 2px;
+	background: #333;
+	transition: 0.3s;
+}
+
+.burger span {
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.burger span::before {
+	top: -8px;
+}
+
+.burger span::after {
+	top: 8px;
+}
+
+.burgerActive span {
+	background: transparent;
+}
+
+.burgerActive span::before {
+	top: 0;
+	transform: rotate(45deg);
+}
+
+.burgerActive span::after {
+	top: 0;
+	transform: rotate(-45deg);
+}
+
+
+/* 2行目：ナビ（ハンバーガーメニュー開閉対応） */
+/*
+.navContainer {
+	overflow: hidden;
+	max-height: 0;
+	transition: max-height 0.3s ease;
+	background: #fff;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.navContainer.open {
+	max-height: 200px;
+}
+
+.navInner {
+	margin: 0 1rem;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	height: 44px;
+	gap: 1rem;
+}
+
+-- Nav内リンク用ラッパー --
+.navLinks {
+	display: flex;
+	gap: 1rem;
+}
+*/
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+	.burger {
+		display: block;
+	}
+
+	.authButtons {
+		display: none;
+	}
+
+	/*.navInner {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+		*/
 }

@@ -1,7 +1,62 @@
-.nav {
+/* Nav.module.css */
+
+.navLinks {
     display: flex;
-    flex: auto;
+    align-items: center;
+    gap: 1rem;
 }
-.nav NavLink {
-    flex: auto;
+
+.navContainer {
+    max-height: 200px;
+    transition: max-height 0.3s ease;
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* モバイル対応（例） */
+@media (max-width: 768px) {
+    .navContainer {
+        /* モバイルでは縦に開く */
+        display: block;
+    }
+    .navInner {
+		flex-direction: column;
+		align-items: flex-start;
+    }
+}
+
+.navInner {
+    margin: 0 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 44px;
+    gap: 1rem;
+}
+
+/* リンクをボタン風に見せる */
+.navLink {
+    text-decoration: none;
+    color: var(--text, #333);
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.navLink:hover {
+    background-color: #f0f0f0;
+}
+
+.autoButton {
+    color: #fff;
+    background-color: var(--primary, #28a745);
+    border: 2px solid var(--primary, #28a745);
+}
+
+/* モバイル対応：幅広ボタン */
+@media (hover: hover) {
+    .autoButton:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
 }

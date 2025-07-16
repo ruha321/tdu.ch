@@ -7,11 +7,13 @@ import styles from "../styles/BodyLayout.module.css";
 export default function BodyLayout() {
   return (
     <AuthProvider>
-      <Header />
-      <main className={styles.main}>
-        <Outlet />
-      </main>
-      <Footer />
+      <div className={styles.wrapper}>
+        <Header />
+        <main className={styles.content}>
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
     </AuthProvider>
   );
 }

@@ -1,0 +1,8 @@
+/* Footer.module.css */
+
+.footer {
+    flex-shrink: 0;
+    background: #f0f0f0;
+    padding: 1rem;
+    text-align: center;
+}
