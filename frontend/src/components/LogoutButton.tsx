@@ -9,7 +9,6 @@ export function LogoutButton() {
 
   return (
     <div className={styles.Logout}>
-      ;
       <button onClick={LogoutHandler} className={styles.LogoutButton}>
         ログアウト
       </button>
