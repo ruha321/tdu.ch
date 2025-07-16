@@ -79,13 +79,12 @@ export const postMessageToDB =
     e.preventDefault();
     const user = await requireUser();
     const text = message.trim();
-    if (!message || message === "") return;
+    if (!text || text === "") return;
 
     if (!user || !user.emailVerified) {
       alert("ログインしている認証済みユーザーのみが投稿できます。");
       return;
     }
-    //console.log(auth.currentUser);
     const messagesRef = ((bbsId: string) => {
       if (bbsId === main) {
         return collection(db, "messages");
@@ -99,6 +98,5 @@ export const postMessageToDB =
       message: text,
       createdAt: serverTimestamp(),
     });
-    console.log(message);
     setMessageNone();
   };

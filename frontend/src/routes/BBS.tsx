@@ -6,7 +6,7 @@ import styles from "../styles/BBS.module.css";
 export const main = "main";
 
 export async function clientLoader() {
-  const user = requireUser();
+  const user = await requireUser();
   if (!user) {
     alert("ログインしてください");
     return redirect("/login");
